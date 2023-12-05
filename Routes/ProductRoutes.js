@@ -42,7 +42,7 @@ productRouter.get("/",async(req,res)=>{
     }
     jwt.verify(token,"UserToken",async(error,decoded)=>{
         if(decoded){
-            console.log(decoded);
+            // console.log(decoded);
             const products = await Productmodel.find({});
             res.status(200).send({"Products":products});
         }
@@ -56,13 +56,14 @@ productRouter.get("/",async(req,res)=>{
 productRouter.get("/:id",async(req,res)=>{
     const token = req.headers.authorization.split(" ")[1];
     const {id} = req.params;
+    
     if(!token){
         return res.status(401).send({"Message":"Please login to get product"});
     }
     jwt.verify(token,"UserToken",async(error,decoded)=>{
         if(decoded){
-            console.log(decoded);
-            const product = await Productmodel.find({_id:id});
+            // console.log(decoded);
+            const product = await Productmodel.findOne({_id:id});
             res.status(200).send({"Products":product});
         }
         else{

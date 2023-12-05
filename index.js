@@ -9,7 +9,8 @@ const jwt = require("jsonwebtoken");
 const {authUserRouter} = require('./Routes/AuthenticationRoutes');
 const {userRouter} = require('./Routes/UserRoutes')
 const {productRouter} = require('./Routes/ProductRoutes')
-
+const {orderRouter} = require('./Routes/OrderRoutes');
+const {apponitmentRouter} = require('./Routes/AppointmentRoutes');
 
 const app = express();
 
@@ -23,9 +24,10 @@ app.get("/",(req,res)=>{
 app.use('/auth',authUserRouter);
 app.use('/user',userRouter);
 app.use('/product',productRouter);
+app.use('/order',orderRouter);
+app.use('/appointment',apponitmentRouter);
 
-
-app.listen(8000,async()=>{
+app.listen(process.env.PORT,async()=>{
     try {
         await connection;
         console.log("Connected to mongodb on port 8000");
